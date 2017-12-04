@@ -30,6 +30,8 @@ import tensorflow as tf
 import data_utils
 import seq2seq_model
 
+import jieba
+
 # python2 and python3 support
 try:
     reload
@@ -221,7 +223,10 @@ def decode():
     # Decode from standard input.
     sys.stdout.write("> ")
     sys.stdout.flush()
-    sentence = sys.stdin.readline()
+    st1 = sys.stdin.readline()
+    filter_seg = filter(lambda x: len(x.strip()) > 0, jieba.cut(st1))
+    sentence = ' '.join(filter_seg)
+    print('Your quesion is:', sentence)
     while sentence:
       # Get token-ids for the input sentence.
       token_ids = data_utils.sentence_to_token_ids(tf.compat.as_bytes(sentence), enc_vocab)
@@ -243,7 +248,11 @@ def decode():
       print(" ".join([tf.compat.as_str(rev_dec_vocab[output]) for output in outputs]))
       print("> ", end="")
       sys.stdout.flush()
-      sentence = sys.stdin.readline()
+      # sentence = sys.stdin.readline()
+      st1 = sys.stdin.readline()
+      filter_seg = filter(lambda x: len(x.strip()) > 0, jieba.cut(st1))
+      sentence = ' '.join(filter_seg)
+      print('Your quesion is:', sentence)
 
 
 def self_test():
