@@ -60,6 +60,7 @@ def get_config(config_file='seq2seq.ini'):
 # We use a number of buckets and pad to the closest one for efficiency.
 # See seq2seq_model.Seq2SeqModel for details of how they work.
 _buckets = [(5, 10), (10, 15), (20, 25), (40, 50)]
+# the first dimention is the length of encoder sentences, and the second dimention is the length of decoder sentences.
 
 
 def read_data(source_path, target_path, max_size=None):
